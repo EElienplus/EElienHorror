@@ -1,7 +1,6 @@
 package me.eelien.eelienhorror.datagen;
 
 import me.eelien.eelienhorror.block.ModBlocks;
-import me.eelien.eelienhorror.item.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -17,6 +16,7 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
+
 import java.util.Set;
 
 public class ModBlockLootTableProvider extends BlockLootSubProvider {
@@ -26,8 +26,10 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(ModBlocks.RUSTY_METAL.get());
-
+        // Don't call DeferredHolder.get() here (registry may not be bound in datagen). Instead, iterate all known blocks.
+        for (Block block : this.getKnownBlocks()) {
+            dropSelf(block);
+        }
     }
 
     protected LootTable.Builder createMultipleOreDrops(Block pBlock, Item item, float minDrops, float maxDrops) {
@@ -39,6 +41,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     }
 
     @Override
+    @javax.annotation.Nonnull
     protected Iterable<Block> getKnownBlocks() {
         return ModBlocks.BLOCKS.getEntries().stream().map(Holder::value)::iterator;
     }

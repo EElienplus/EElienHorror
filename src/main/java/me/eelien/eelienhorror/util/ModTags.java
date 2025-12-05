@@ -21,9 +21,7 @@ public class ModTags {
 
     public static class Items {
 
-        // === Add your custom item tags here ===
 
-        // Example: cooked meat tag for your recipe
         public static final TagKey<Item> COOKED_MEAT = createTag("cooked_meat");
 
         private static TagKey<Item> createTag(String name) {

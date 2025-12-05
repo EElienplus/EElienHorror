@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "tag": "eelienhorror:cooked_meat"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "SMS",
+    "WWW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "eelienhorror:medkit"
+  }
+}

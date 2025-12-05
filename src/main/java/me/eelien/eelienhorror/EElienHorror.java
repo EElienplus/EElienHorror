@@ -1,6 +1,10 @@
 package me.eelien.eelienhorror;
 
+import me.eelien.eelienhorror.block.ModBlocks;
 import me.eelien.eelienhorror.item.ModItems;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -34,7 +38,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(EElienHorror.MODID)
 public class EElienHorror {
-    public static final String MODID = "eelienmod";
+    public static final String MODID = "eelienhorror";
     public static final Logger LOGGER = LogUtils.getLogger();
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -44,7 +48,9 @@ public class EElienHorror {
 
         NeoForge.EVENT_BUS.register(this);
 
+        // Register our DeferredRegisters on the mod event bus so they get their RegisterEvent callbacks
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 
@@ -61,6 +67,11 @@ public class EElienHorror {
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.MEDKIT);
         }
+
+        if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(ModBlocks.RUSTY_METAL);
+        }
+
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -69,5 +80,15 @@ public class EElienHorror {
 
 
 
+    }
+
+    @SuppressWarnings({"deprecation", "removal"})
+    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+
+        }
     }
 }

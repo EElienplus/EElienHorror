@@ -28,9 +28,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     protected void buildRecipes(RecipeOutput recipeOutput) {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.MEDKIT.get())
-                .pattern("WMW")
+                .pattern("WWW")
                 .pattern("SMS")
-                .pattern("WMW")
+                .pattern("WWW")
+
                 .define('W', ItemTags.WOOL)
                 .define('M', ModTags.Items.COOKED_MEAT)
                 .define('S', Items.STICK)
